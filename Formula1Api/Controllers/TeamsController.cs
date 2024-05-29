@@ -16,7 +16,6 @@ namespace Formula1Api.Controllers
         [HttpGet("/All Teams")]
         public IActionResult AllTeams()
         {
-
             var teams = _teams.AllTeams();
 
             if (teams == null || !teams.Any())
