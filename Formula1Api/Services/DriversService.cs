@@ -69,7 +69,7 @@ namespace Formula1Api.Services
         public ICollection<DriversAndTeamsDTO> DriversAndTeams()
         {
             var driversAndTeams = (from driver in _context.Drivers
-                                   join team in _context.Teams on driver.TeamID equals team.TeamID
+                                   join team in _context.Teams on driver.TeamID equals team.ID
                                    select new DriversAndTeamsDTO
                                    {
                                        DriverName = driver.Name,

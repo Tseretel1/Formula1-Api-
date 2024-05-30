@@ -1,5 +1,6 @@
 ﻿using Formula1Api.Formula_Dtos;
 using Formula1Api.Interfaces;
+using Formula1Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using static Formula1Api.Services.AdminService;
 
@@ -15,16 +16,16 @@ namespace Formula1Api.Controllers
             _admin = admin;
         }
         [HttpPost("/Add New Driver")]
-        public IActionResult AddNewDrover(DriversDTO dto)
-        {
-            _admin.AddDriver(dto);
-            if(ModelState.IsValid && ModelState!= null)
+        public IActionResult AddNewDrover(Driver driver)
+        {        
+            try
             {
-                return Ok("Driver has been added");
+                _admin.AddDriver(driver);
+                return Ok("Driver has been Added");
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("something went wrong");
+                return BadRequest("Something went wrong");
             }
         }
         [HttpPost("/DeleteDriver")]
@@ -41,14 +42,65 @@ namespace Formula1Api.Controllers
             }
             catch (KeyNotFoundException ex)
             {
+                
                 return NotFound("Driver not found with the given ID");
+            }
+        }
+        [HttpPost("/Update Driver")]
+        public IActionResult UpdateDriver(Driver driver)
+        {
+            try
+            {
+                _admin.UpdateDriver(driver);
+                return Ok("Driver has been updated");
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest("Something went wrong updating person");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound("Driver not found with the given ID");
+            }
+        }
+        [HttpPost("/Add New Team")]
+        public IActionResult AddnewTeam(Team team)
+        {
+            try
+            {
+                _admin.AddTeam(team);
+                return Ok("Team has been Added");
             }
             catch (Exception ex)
             {
                 return BadRequest("Something went wrong");
             }
         }
-
-
+        [HttpPost("/delete Team")]
+        public IActionResult DeleteTeam(int id)
+        {
+            try
+            {
+                _admin.DeleteTeam(id);
+                return Ok("Team has been deleted");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong");
+            }
+        }
+        [HttpPost("/Update Team")]
+        public IActionResult Updateteam(Team team)
+        {
+            try
+            {
+                _admin.UpdateTeam(team);
+                return Ok("Team has been updated");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Something went wrong");
+            }
+        }
     }
 }

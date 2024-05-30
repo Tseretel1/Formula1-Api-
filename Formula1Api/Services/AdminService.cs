@@ -12,23 +12,13 @@ namespace Formula1Api.Services
         {
             _context = context;
         }
-        public void AddDriver(DriversDTO dto)
+        public void AddDriver(Driver driver)
         {
             try
             {
-                if (dto != null) {
-                    var Driver = new Driver
-                    {
-                        Name = dto.DriverName,
-                        LastName = dto.DriverLastName,
-                        Titles = dto.DriverTitles,
-                        Age = dto.DriverAge,
-                        DriverPhoto = dto.DriverPhoto,
-                        Nationality = dto.DriverNationality,
-                        Points = dto.DriverPoints,
-                        TeamID = dto.TeamID
-                    };
-                    _context.Drivers.Add(Driver);
+                if (driver != null)
+                {
+                    _context.Drivers.Add(driver);
                     _context.SaveChanges();
                 }
             }
@@ -66,25 +56,38 @@ namespace Formula1Api.Services
                 throw;
             }
         }
-
-
-        public void AddTeam()
+        public void UpdateDriver(Driver driver)
         {
-            throw new NotImplementedException();
+            if (driver != null)
+            {
+                _context.Drivers.Update(driver);
+                _context.SaveChanges();
+            }
         }
-        public void DeleteTeam()
+        public void AddTeam(Team team)
         {
-            throw new NotImplementedException();
+            if (team != null)
+            {
+                _context.Teams.Add(team);
+                _context.SaveChanges();
+            }
         }
-
-        public void UpdateDriver()
+        public void DeleteTeam(int id )
         {
-            throw new NotImplementedException();
+            var team = _context.Teams.FirstOrDefault(x => x.ID == id);
+            if (team != null)
+            {
+                _context.Teams.Remove(team);
+                _context.SaveChanges();
+            }
         }
-
-        public void UpdateTeam()
+        public void UpdateTeam(Team team)
         {
-            throw new NotImplementedException();
+            if (team != null && team.ID!=null)
+            {
+                _context.Teams.Update(team);
+                _context.SaveChanges();
+            }
         }
     }
 }

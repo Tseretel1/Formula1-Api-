@@ -7,6 +7,6 @@ namespace Formula1Api.Interfaces
     {
         ICollection <TeamsDTO> AllTeams();
         ICollection <Team> GetTeamsByName(string Name);
-        ICollection<Team> Filter_ByTitles();
+        ICollection <Team> Filter_ByTitles();
     }
 }
