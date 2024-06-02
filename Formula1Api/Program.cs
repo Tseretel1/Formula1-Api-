@@ -1,7 +1,12 @@
 using Formula1Api.Data;
 using Formula1Api.Interfaces;
 using Formula1Api.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +14,10 @@ builder.Services.AddDbContext<FormulaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FormulaConnection")));
 
 
-builder.Services.AddCors(options =>
+builder.Services.AddCors(options => 
+
+
+
 {
     options.AddPolicy("AllowLocalhost",
         builder =>
@@ -42,6 +50,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 app.UseCors("AllowLocalhost");
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Photos")),
+    RequestPath = "/Photos"
+});
+
 
 app.UseCors(options =>
   options.WithOrigins("http://localhost:7197")
@@ -53,6 +69,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseStaticFiles();
 }
 
 app.UseHttpsRedirection();

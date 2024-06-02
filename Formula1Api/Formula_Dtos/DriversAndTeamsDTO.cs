@@ -10,7 +10,6 @@
         public int DriverAge { get; set; }
         public string DriverNationality { get; set; }
         public string DriverPhoto { get; set; }
-        public string DriverPhotoFile { get; set; }
         public string TeamName { get; set; }
         public int TeamTitleCount { get; set; }
         public string TeamPhoto { get; set; }

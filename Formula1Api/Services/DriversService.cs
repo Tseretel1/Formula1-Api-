@@ -36,7 +36,7 @@ namespace Formula1Api.Services
                     DriverAge = driver.Age,
                     DriverNationality =driver.Nationality,
                     DriverTitles = driver.Titles,
-                    DriverPhoto = fullpath + "/"+ driver.DriverPhoto,
+                    DriverPhoto = driver.DriverPhoto,
                     DriverPoints = driver.Points,
                     DriverID =driver.ID,
                 };
@@ -80,6 +80,7 @@ namespace Formula1Api.Services
                                        DriverNationality = driver.Nationality,
                                        TeamName = team.TeamName,
                                        TeamTitleCount = team.TitleCount,
+                                       TeamPhoto = team.TeamPhoto,
                                        DriverPhoto = driver.DriverPhoto,
                                        DriverID = driver.ID
                                    }).ToList();

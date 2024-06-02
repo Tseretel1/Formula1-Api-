@@ -22,6 +22,7 @@ namespace Formula1Api.Services
                 {
                     TeamName = team.TeamName,
                     TeamTitleCount = team.TitleCount,
+                    TeamPhoto = team.TeamPhoto
                 };
                 Dto.Add(Team);
             }
