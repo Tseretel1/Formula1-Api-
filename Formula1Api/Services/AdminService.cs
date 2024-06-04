@@ -2,24 +2,50 @@
 using Formula1Api.Formula_Dtos;
 using Formula1Api.Interfaces;
 using Formula1Api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Formula1Api.Services
 {
     public class AdminService : AdminInterface
     {
         private readonly FormulaDbContext _context;
-        public AdminService(FormulaDbContext context)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public AdminService(FormulaDbContext context, IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
         }
-        public void AddDriver(Driver driver)
+        public void AddDriver(Driver driver, IFormFile driver_Photo_Upload)
         {
             try
-            {
-                if (driver != null)
+            {   if (driver != null)
                 {
-                    _context.Drivers.Add(driver);
-                    _context.SaveChanges();
+                    if (driver.Driver_Photo_Upload != null && driver.Driver_Photo_Upload.Length > 0)
+                    {
+                        string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath + "/" + "Photos/Drivers");
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + driver.Driver_Photo_Upload.FileName;
+                        string PattoDisplay = $"/Photos/Drivers/{uniqueFileName}";
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            driver.Driver_Photo_Upload.CopyTo(stream);
+                        }
+                        string localhostString = "https://localhost:7197";
+                        var NewDriver = new Driver
+                        {
+                            Age = driver.Age,
+                            Name = driver.Name,
+                            LastName = driver.Name,
+                            DriverPhoto = localhostString + PattoDisplay,
+                            Nationality = driver.Nationality,
+                            Points = driver.Points,
+                            TeamID = driver.TeamID,
+                            Titles = driver.Titles,
+                        };
+                        _context.Drivers.Add(NewDriver);
+                        _context.SaveChanges();
+                    }
                 }
             }
             catch(Exception ex)

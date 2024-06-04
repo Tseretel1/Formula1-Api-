@@ -4,6 +4,7 @@ using Formula1Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Formula1Api.Migrations
 {
     [DbContext(typeof(FormulaDbContext))]
-    partial class FormulaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240604160525_f1 Team cand their cars")]
+    partial class f1Teamcandtheircars
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

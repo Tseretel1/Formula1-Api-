@@ -5,7 +5,7 @@ namespace Formula1Api.Interfaces
 {
     public interface AdminInterface
     {
-        void AddDriver(Driver driver);
+        void AddDriver(Driver driver , IFormFile driver_Photo_Upload);
         void DeleteDriver(int id);
         void UpdateDriver(Driver driver);
         void AddTeam(Team team);

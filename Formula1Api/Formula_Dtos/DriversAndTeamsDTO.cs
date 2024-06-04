@@ -13,5 +13,6 @@
         public string TeamName { get; set; }
         public int TeamTitleCount { get; set; }
         public string TeamPhoto { get; set; }
+        public string TeamCar { get; set; }
     }
 }

@@ -81,8 +81,9 @@ namespace Formula1Api.Services
                                        TeamName = team.TeamName,
                                        TeamTitleCount = team.TitleCount,
                                        TeamPhoto = team.TeamPhoto,
+                                       TeamCar = team.TeamCar,
                                        DriverPhoto = driver.DriverPhoto,
-                                       DriverID = driver.ID
+                                       DriverID = driver.ID,
                                    }).ToList();
             return driversAndTeams;
         }

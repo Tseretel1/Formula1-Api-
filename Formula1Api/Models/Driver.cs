@@ -1,4 +1,6 @@
-﻿namespace Formula1Api.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Formula1Api.Models
 {
     public class Driver
     {
@@ -11,5 +13,8 @@
         public int Points { get; set; }
         public int Age { get; set; }
         public string Nationality { get; set; }
+
+        [NotMapped]
+        public IFormFile Driver_Photo_Upload { get; set; }
     }
 }

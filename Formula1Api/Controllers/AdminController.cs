@@ -16,16 +16,33 @@ namespace Formula1Api.Controllers
             _admin = admin;
         }
         [HttpPost("/Add New Driver")]
-        public IActionResult AddNewDrover(Driver driver)
-        {        
+
+        public IActionResult AddNewDriver([FromForm] Driver driver, IFormFile driver_Photo_Upload)
+        {
             try
             {
-                _admin.AddDriver(driver);
-                return Ok("Driver has been Added");
+                if (driver_Photo_Upload != null && driver_Photo_Upload.Length > 0)
+                {
+                    // Validate file type
+                    if (driver_Photo_Upload.ContentType != "image/webp")
+                    {
+                        return BadRequest("Only webp images are allowed.");
+                    }
+
+                    // Pass the uploaded file to your service method for handling
+                    _admin.AddDriver(driver, driver_Photo_Upload);
+
+                    return Ok("Driver has been Added");
+                }
+                else
+                {
+                    return BadRequest("Driver photo is missing.");
+                }
             }
             catch (Exception ex)
             {
-                return BadRequest("Something went wrong");
+                // Handle exceptions appropriately
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error.");
             }
         }
         [HttpPost("/DeleteDriver")]
